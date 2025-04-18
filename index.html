@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Critocracy</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/logging.css">
+    <style>
+        /* Force visibility of start screen */
+        #start-screen {
+            display: flex !important;
+            opacity: 1 !important;
+            z-index: 100 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="start-content">
+            <h1>Critical Thinking By Traci Dirom</h1>
+            <button id="start-game-btn">Start Game</button>
+        </div>
+    </div>
+
+    <!-- Player Count Screen -->
+    <div id="player-count-screen" class="screen">
+        <h2>Select Players</h2>
+        <div>
+            <label for="total-player-count">Total Players: 6</label>
+            <select id="total-player-count" name="total-players" style="display: none;">
+                <option value="6" selected>6</option>
+            </select>
+        </div>
+        <div>
+            <label for="human-player-count">Human Players (1-6): </label>
+            <select id="human-player-count" name="human-players">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <p class="player-info-text">AI players will fill remaining slots</p>
+        <button id="player-count-confirm">Confirm Player Setup</button>
+    </div>
+
+    <!-- Role Selection Screen - 3-row Layout -->
+    <div id="role-selection-screen" class="screen">
+        <div id="role-selection-container">
+            
+            <!-- Row 1: Title Header -->
+            <div class="role-selection-header">
+                <h2>Select Your Role</h2>
+            </div>
+
+            <!-- Row 2: Sub-grid for Character Cards (3×2) -->
+            <div class="subgrade">
+                <!-- Character 1 -->
+                <div class="sub-grid-item">
+                    <h2>Salvidor Dali The Artist</h2>
+                    <h4>A Brilliant Nutjob And Entertaining Loose Cannon</h4>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p><strong>Starting Resources:</strong> 14 Influence, 8 Knowledge, 0 Money</p>
+                            <p><strong>Special Ability:</strong> Cannot be forced to change paths</p>
+                            <p><strong>Opposition:</strong> Entrepreneur</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="assets/tokens/A.png" alt="Artist" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="role-select" data-role="artist">Select</button>
+                    </div>
+                </div>
+            
+                <!-- Character 2 -->
+                <div class="sub-grid-item">
+                    <h2>Suetonius The Historian</h2>
+                    <h4>Rome's Greatest Gossip....err Historian</h4>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p><strong>Starting Resources:</strong> 14 Knowledge, 8 Money, 0 Influence</p>
+                            <p><strong>Special Ability:</strong> Cannot have knowledge stolen</p>
+                            <p><strong>Opposition:</strong> Politician</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="assets/tokens/H.png" alt="Historian" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="role-select" data-role="historian">Select</button>
+                    </div>
+                </div>  
+
+                <!-- Character 3 -->
+                <div class="sub-grid-item">
+                    <h2>Jacques Cartier The Colonialist</h2>
+                    <h4><strong>For The Glory Of The Empire!</strong><sub>...but to the detriment of everyone else</sub></h4>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p><strong>Starting Resources:</strong> 14 Money, 8 Influence, 0 Knowledge</p>
+                            <p><strong>Special Ability:</strong> Cannot have influence stolen</p>
+                            <p><strong>Opposition:</strong> Revolutionary</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="assets/tokens/C.png" alt="Colonialist" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="role-select" data-role="colonialist">Select</button>
+                    </div>
+                </div> 
+
+                <!-- Character 4 -->
+                <div class="sub-grid-item">
+                    <h2>Audra Lorde The Revolutionary</h2>
+                    <h4>The Quietest Revolutionary That Ever There Was</h4>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p><strong>Starting Resources:</strong> 14 Knowledge, 8 Influence, 0 Money</p>
+                            <p><strong>Special Ability:</strong> Ignores 1 sabotage per game</p>
+                            <p><strong>Opposition:</strong> Entrepreneur</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="assets/tokens/R.png" alt="Revolutionary" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="role-select" data-role="revolutionary">Select</button>
+                    </div>
+                </div>  
+
+                <!-- Character 5 -->
+                <div class="sub-grid-item">
+                    <h2>Winston Churchill The Politician</h2>
+                    <h4>The Politician With A Plan...Unless You Are Irish</h4>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p><strong>Starting Resources:</strong> 14 Influence, 8 Money, 0 Knowledge</p>
+                            <p><strong>Special Ability:</strong> Money cannot be stolen from</p>
+                            <p><strong>Opposition:</strong> Historian</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="assets/tokens/P.png" alt="Politician" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="role-select" data-role="politician">Select</button>
+                    </div>
+                </div> 
+
+                <!-- Character 6 -->
+                <div class="sub-grid-item">
+                    <h2>Regina Basilier The Entrepreneur</h2>
+                    <h4>Making Bank Before It Was Even Legal, Legit</h4>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p><strong>Starting Resources:</strong> 14 Money, 8 Knowledge, 0 Influence</p>
+                            <p><strong>Special Ability:</strong> Never has to miss a turn</p>
+                            <p><strong>Opposition:</strong> Artist</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="assets/tokens/E.png" alt="Entrepreneur" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="role-select" data-role="entrepreneur">Select</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 3: Confirm Button -->
+            <div class="confirm-button-container">
+                <button id="role-confirm">Confirm Role</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Turn Order Screen -->
+    <div id="turn-order-screen" class="screen">
+        <h3>Roll for Turn Order</h3>
+        <div id="turn-order-container"></div>
+        <button id="roll-turn-order-btn">Roll Dice</button>
+        <div id="turn-order-results"></div>
+    </div>
+
+    <!-- Game Board Screen -->
+    <div id="game-board-screen" class="screen">
+        <!-- Main Game Area -->
+        <div id="board-container">
+            <canvas id="board-canvas"></canvas>
+            <div id="pathOptions"></div>
+            <div id="junctionOptions"></div>
+        </div>                    
+
+        <!-- Game UI Elements -->
+        <div id="ui-container">
+            <!-- Player Info Panel -->
+            <div id="player-info">
+                <h2>Current Player</h2>
+                <div id="current-player-name">-</div>
+                <div id="resources">
+                    <div>Money: <span id="resource-money">0</span></div>
+                    <div>Knowledge: <span id="resource-knowledge">0</span></div>
+                    <div>Influence: <span id="resource-influence">0</span></div>
+                </div>
+            </div>
+
+            <!-- Game Controls -->
+            <div id="controls">
+                <button id="roll-dice-btn">Roll Dice</button>
+                <button id="end-turn-btn" disabled>End Turn</button>
+            </div>
+
+            <!-- Dice Animation Area -->
+            <div id="dice-animation-area">
+                <div id="dice-face" class="dice"></div>
+            </div>
+            <div id="dice-roll"></div>
+        </div>
+
+        <!-- Game Log -->
+        <div id="game-log">
+            <!-- Game messages will be shown here -->
+        </div>
+    </div>
+
+    <!-- ===== Popups ===== -->
+    <!-- Card Display Popup -->
+    <div id="card-popup" class="popup card-popup" style="display: none;">
+        <div class="popup-content">
+            <h3 id="card-title">Card Title</h3>
+            <p id="card-description">Card description goes here.</p>
+            
+            <button id="show-card-details-btn" class="card-button">Show Explanation</button>
+            
+            <div id="card-effects">
+                <!-- Effects listed here -->
+            </div>
+            <button id="close-card-btn">Close</button>
+        </div>
+    </div>
+
+    <!-- Initial Path Choice Popup -->
+    <div id="path-choice-popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h3>Choose Your Starting Path</h3>
+            <div id="path-choice-options">
+                <!-- Buttons will be added here by ui.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Junction Choice Popup -->
+    <div id="junction-choice-popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h3>Choose Your Path</h3>
+            <div id="junction-choice-options">
+                <!-- Buttons will be added here by ui.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Scripts -->
+    <!-- Use type="module" for all scripts to enable ES6 modules -->
+    <script type="module" src="assets/Cards/Specialeventcards.js"></script>
+    <script type="module" src="assets/Cards/Endofturncards.js"></script>
+    <script type="module" src="js/board-data.js"></script>
+    <script type="module" src="js/logging.js"></script>
+    <script type="module" src="js/players.js"></script>
+    <script type="module" src="js/cards.js"></script>
+    <script type="module" src="js/board.js"></script>
+    <script type="module" src="js/animations.js"></script>
+    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="js/game.js"></script>
+    <script type="module" src="js/main.js"></script>
+
+    <!-- Screen Transition and Game Flow Script -->
+    <script>
+        console.log('Game initialization script loaded');
+        
+        // Track game initialization
+        window.gameInitStatus = {
+            domLoaded: false,
+            startScreenReady: false,
+            playerCountReady: false,
+            roleSelectionReady: false,
+            turnOrderReady: false
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM content loaded');
+            window.gameInitStatus.domLoaded = true;
+            
+            // Get all screen elements
+            const startScreen = document.getElementById('start-screen');
+            const playerCountScreen = document.getElementById('player-count-screen');
+            const roleSelectionScreen = document.getElementById('role-selection-screen');
+            const turnOrderScreen = document.getElementById('turn-order-screen');
+            const gameBoardScreen = document.getElementById('game-board-screen');
+            
+            // Get all button elements
+            const startButton = document.getElementById('start-game-btn');
+            const playerCountConfirmBtn = document.getElementById('player-count-confirm');
+            const roleConfirmBtn = document.getElementById('role-confirm');
+            const rollTurnOrderBtn = document.getElementById('roll-turn-order-btn');
+            
+            // Ensure start screen is visible
+            if (startScreen) {
+                startScreen.style.display = 'flex';
+                startScreen.classList.add('active');
+                window.gameInitStatus.startScreenReady = true;
+                console.log('Start screen visible');
+            } else {
+                console.error('Start screen not found!');
+            }
+            
+            // Function to transition between screens with fade effect
+            function transitionToScreen(fromScreen, toScreen) {
+                if (!fromScreen || !toScreen) {
+                    console.error('Invalid screen transition');
+                    return;
+                }
+                
+                console.log(`Transitioning from ${fromScreen.id} to ${toScreen.id}`);
+                
+                // Hide all screens first
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.style.display = 'none';
+                    screen.classList.remove('active');
+                });
+                
+                // Show target screen
+                toScreen.style.display = 'flex';
+                toScreen.classList.add('active');
+                
+                // Log completion
+                console.log(`Transition to ${toScreen.id} complete`);
+            }
+            
+            // 1. START BUTTON: Start Screen → Player Count Screen
+            if (startButton && playerCountScreen) {
+                startButton.addEventListener('click', function() {
+                    console.log('Start button clicked');
+                    transitionToScreen(startScreen, playerCountScreen);
+                    window.gameInitStatus.playerCountReady = true;
+                });
+            } else {
+                console.error('Start button or player count screen missing');
+            }
+            
+            // 2. PLAYER COUNT CONFIRMATION: Player Count Screen → Role Selection Screen
+            if (playerCountConfirmBtn && roleSelectionScreen) {
+                playerCountConfirmBtn.addEventListener('click', function() {
+                    console.log('Player count confirmed');
+                    
+                    // Store human player count in localStorage
+                    const humanPlayerCount = document.getElementById('human-player-count').value;
+                    localStorage.setItem('humanPlayerCount', humanPlayerCount);
+                    console.log(`Human player count: ${humanPlayerCount}`);
+                    
+                    transitionToScreen(playerCountScreen, roleSelectionScreen);
+                    window.gameInitStatus.roleSelectionReady = true;
+                    
+                    // Setup role selection by enabling all role cards
+                    setupRoleSelection();
+                });
+            } else {
+                console.error('Player count confirm button or role selection screen missing');
+            }
+            
+            // Function to handle role selection
+            function setupRoleSelection() {
+                console.log('Setting up role selection');
+                
+                // Clear previous selections
+                document.querySelectorAll('.sub-grid-item').forEach(card => {
+                    card.classList.remove('selected');
+                    card.classList.remove('disabled');
+                });
+                
+                // Get all role selection buttons
+                const roleButtons = document.querySelectorAll('.role-select');
+                
+                // Add click events to each role button
+                roleButtons.forEach(button => {
+                    // Clone and replace to remove any existing listeners
+                    const newBtn = button.cloneNode(true);
+                    button.parentNode.replaceChild(newBtn, button);
+                    
+                    // Add new click handler
+                    newBtn.addEventListener('click', function(e) {
+                        const roleId = this.getAttribute('data-role');
+                        const parentCard = this.closest('.sub-grid-item');
+                        
+                        // Clear previous selections
+                        document.querySelectorAll('.sub-grid-item').forEach(card => {
+                            card.classList.remove('selected');
+                        });
+                        
+                        // Select this card
+                        parentCard.classList.add('selected');
+                        console.log(`Selected role: ${roleId}`);
+                    });
+                });
+                
+                // Make whole card clickable
+                document.querySelectorAll('.sub-grid-item').forEach(card => {
+                    card.addEventListener('click', function(e) {
+                        // Ignore if clicked on button directly
+                        if (e.target.closest('.role-select')) return;
+                        
+                        // Get the button inside this card and trigger click
+                        const button = this.querySelector('.role-select');
+                        if (button) button.click();
+                    });
+                });
+            }
+            
+            // 3. ROLE CONFIRMATION: Role Selection Screen → Turn Order Screen
+            if (roleConfirmBtn && turnOrderScreen) {
+                roleConfirmBtn.addEventListener('click', function() {
+                    console.log('Role selection confirmed');
+                    
+                    // Check if a role is selected
+                    const selectedRole = document.querySelector('.sub-grid-item.selected');
+                    if (!selectedRole) {
+                        alert('Please select a role first!');
+                        return;
+                    }
+                    
+                    // Get selected role
+                    const roleId = selectedRole.querySelector('.role-select').getAttribute('data-role');
+                    console.log(`Confirmed role: ${roleId}`);
+                    
+                    // Create player configurations
+                    const humanPlayerCount = parseInt(localStorage.getItem('humanPlayerCount') || '1');
+                    const playerConfigs = [];
+                    
+                    // Add human player with selected role
+                    playerConfigs.push({
+                        id: 1,
+                        name: 'Player 1',
+                        role: roleId,
+                        isHuman: true
+                    });
+                    
+                    // Add AI players with remaining roles
+                    const allRoles = ['artist', 'historian', 'revolutionary', 'colonialist', 'politician', 'entrepreneur'];
+                    const remainingRoles = allRoles.filter(role => role !== roleId);
+                    
+                    const aiCount = 6 - humanPlayerCount;
+                    for (let i = 0; i < aiCount; i++) {
+                        // Select random role from remaining roles
+                        if (remainingRoles.length > 0) {
+                            const randomIndex = Math.floor(Math.random() * remainingRoles.length);
+                            const aiRole = remainingRoles[randomIndex];
+                            remainingRoles.splice(randomIndex, 1);
+                            
+                            playerConfigs.push({
+                                id: i + 2, // Start from 2 (after human player)
+                                name: `AI ${i + 1}`,
+                                role: aiRole,
+                                isHuman: false
+                            });
+                        }
+                    }
+                    
+                    // Store player configurations for game initialization
+                    localStorage.setItem('playerConfigs', JSON.stringify(playerConfigs));
+                    
+                    // Transition to Turn Order Screen
+                    transitionToScreen(roleSelectionScreen, turnOrderScreen);
+                    window.gameInitStatus.turnOrderReady = true;
+                    
+                    // Setup turn order display with player configurations
+                    setupTurnOrderDisplay(playerConfigs);
+                });
+            } else {
+                console.error('Role confirm button or turn order screen missing');
+            }
+            
+            // Function to display players for turn order rolling
+            function setupTurnOrderDisplay(playerConfigs) {
+                console.log('Setting up turn order display');
+                
+                const turnOrderContainer = document.getElementById('turn-order-container');
+                if (!turnOrderContainer) {
+                    console.error('Turn order container not found');
+                    return;
+                }
+                
+                // Clear previous content
+                turnOrderContainer.innerHTML = '';
+                
+                // Create turn order cards for each player
+                playerConfigs.forEach(player => {
+                    const playerCard = document.createElement('div');
+                    playerCard.classList.add('player-turn-card');
+                    playerCard.setAttribute('data-player-id', player.id);
+                    
+                    playerCard.innerHTML = `
+                        <h3>${player.name} (${player.role})</h3>
+                        <div class="dice-result" id="dice-${player.id}">?</div>
+                    `;
+                    
+                    turnOrderContainer.appendChild(playerCard);
+                });
+            }
+            
+            // 4. ROLL FOR TURN ORDER: Turn Order Screen → Game Board Screen
+            if (rollTurnOrderBtn && gameBoardScreen) {
+                rollTurnOrderBtn.addEventListener('click', function() {
+                    console.log('Rolling for turn order');
+                    
+                    // Get player configurations
+                    const playerConfigs = JSON.parse(localStorage.getItem('playerConfigs') || '[]');
+                    if (playerConfigs.length === 0) {
+                        console.error('No player configurations found');
+                        return;
+                    }
+                    
+                    // Roll dice for each player
+                    const playerRolls = playerConfigs.map(player => {
+                        const diceRoll = Math.floor(Math.random() * 6) + 1; // 1-6
+                        
+                        // Update dice display
+                        const diceElement = document.getElementById(`dice-${player.id}`);
+                        if (diceElement) {
+                            diceElement.textContent = diceRoll;
+                            diceElement.classList.add('rolled');
+                        }
+                        
+                        return {
+                            player: player,
+                            roll: diceRoll
+                        };
+                    });
+                    
+                    // Sort players by dice roll (highest first)
+                    playerRolls.sort((a, b) => b.roll - a.roll);
+                    
+                    // Display results
+                    const resultElement = document.getElementById('turn-order-results');
+                    if (resultElement) {
+                        resultElement.innerHTML = '<h4>Turn Order:</h4>';
+                        
+                        playerRolls.forEach((item, index) => {
+                            resultElement.innerHTML += `<p>${index + 1}. ${item.player.name} (${item.player.role}): ${item.roll}</p>`;
+                        });
+                    }
+                    
+                    // Store final turn order for game
+                    const turnOrder = playerRolls.map(item => item.player.id);
+                    localStorage.setItem('turnOrder', JSON.stringify(turnOrder));
+                    
+                    // Add button to start game after showing results
+                    const startGameBtn = document.createElement('button');
+                    startGameBtn.textContent = 'Start Game';
+                    startGameBtn.id = 'start-game-after-order';
+                    if (resultElement) resultElement.appendChild(startGameBtn);
+                    
+                    // Add event listener to start game button
+                    startGameBtn.addEventListener('click', function() {
+                        console.log('Starting game with determined turn order');
+                        
+                        // Import game module to initialize game
+                        import('./js/game.js')
+                            .then(gameModule => {
+                                const finalPlayerConfigs = playerRolls.map(item => item.player);
+                                
+                                if (typeof gameModule.initializeGame === 'function') {
+                                    return gameModule.initializeGame(finalPlayerConfigs);
+                                } else {
+                                    throw new Error('Game initialization function not found');
+                                }
+                            })
+                            .then(success => {
+                                if (success) {
+                                    // Transition to game board
+                                    transitionToScreen(turnOrderScreen, gameBoardScreen);
+                                    console.log('Game started successfully');
+                                } else {
+                                    throw new Error('Game initialization failed');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error starting game:', error);
+                                alert('Failed to start game: ' + error.message);
+                            });
+                    });
+                });
+            } else {
+                console.error('Roll button or game board screen missing');
+            }
+        });
+        
+        // Fallback in case DOMContentLoaded doesn't fire
+        setTimeout(function() {
+            if (!window.gameInitStatus.domLoaded) {
+                console.warn('DOMContentLoaded did not fire, using timeout fallback');
+                document.dispatchEvent(new Event('DOMContentLoaded'));
+            }
+        }, 1000);
+    </script>
+</body>
+</html> 

@@ -70,7 +70,7 @@ select, input {
 #player-count-screen,
 #turn-order-screen,
 #end-game-screen {
-    background-image: url('../assets/backgrounds/Critocracy.jpg');
+    background-image: url('../assets/Critocracy.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -161,7 +161,7 @@ select, input {
 
 /* Player Count Screen */
 #player-count-screen {
-    background-image: url('../assets/backgrounds/Critocracy.jpg');
+    background-image: url('../assets/Critocracy.jpg');
     background-size: cover;
     background-position: center;
     flex-direction: column;
@@ -205,7 +205,7 @@ select, input {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-image: url('../assets/backgrounds/Critocracy.jpg');
+  background-image: url('../assets/Critocracy.jpg');
   background-size: cover;
   background-position: center;
   padding: 20px;
@@ -349,7 +349,7 @@ select, input {
 
 /* Turn Order */
 #turn-order-screen h4 {
-    background-image: url('../assets/backgrounds/Critocracy.jpg');
+    background-image: url('../assets/Critocracy.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -1003,7 +1003,7 @@ body, html {
 
 /* ===== Start Screen ===== */
 #start-screen {
-    background-image: url('../assets/backgrounds/Critocracy.jpg');
+    background-image: url('../assets/Critocracy.jpg');
     background-size: cover;
     background-position: center;
     text-align: center;
